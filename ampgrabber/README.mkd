@@ -1,0 +1,44 @@
+Amiga Music Preservation grabber
+================================
+
+Attention! This project was written back in time in far childhood, when i had no any coding skills. It's even worse than any "mouse programming".
+
+What is that for
+================
+This is a grabber that downloads modules from Amiga Music Preservation (that is currently hugest amiga music scene archive) all together per one musician. They don't provide this by themselves cause they want to save their traffic, but they spend too much of our time.
+
+How to
+------
+Well, target platform is Windows (: Main core is Win Batch file ;) Grabber itself written in PHP and lowext utility was originaly written in Perl, but project is so old so i stolen lowext sources, so only lowext binary included, but it could be rewritten in few strings in any language.
+You'll need something like Quick Batch Compiler (actually it's not a compiler, just shitting wrapper) to make it all work together. Or not use it and change pathes to utilites in core file. 
+
+ampg-ripper.php
+---------------
+Obfuscated version of grabber. Non-obfuscated origin is 'ampg-ripper.php.orig'. Should be wrapped using "Bambalam PHP EXE Embedder" or you may just use PHP interpreter instead.
+
+ampg-download.exe
+-----------------
+It's actually a WGET binary.
+
+ampg-extract.exe
+----------------
+It's GZIP binary compiled for Win. Used because Amiga Music Preservation archived all modules with gzip.
+
+ampg-lowext.exe
+---------------
+In first AMP uses backward naming comparing to Win/UNIX like was on original Amiga computers. This form looks like "externsion.name", renaming of these files into Windows format occurs in core Batch file.
+
+In second AMP uses CAPSed naming of files i.e. all letters in names are upper-cased. Win default filesystems like FAT and NTFS aren't case sensitive but they still store upper/lower-casing naming, so this utility just lowercasing all archives names.
+
+ampg-pack.exe
+-------------
+It's ZIP for Windows.
+
+
+All these utilits should be embedded using QBFC (of course if you'll decide use it). .ico file can be also used by QBFC.
+
+WinXP x64 workaround
+====================
+In WinXP x64 i found that chcp.com was in place, but was invisible
+for anything except the Explorer.exe itself. Copy it somewhere than
+place back with cmd.exe or 3rd party GUI manager.

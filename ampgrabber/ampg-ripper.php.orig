@@ -1,0 +1,55 @@
+<?
+	error_reporting(0);
+	
+	(!$argv[1] || $argc != 3) ? die() : $mid = sprintf("%d", $argv[2]);
+	if(($argv[1] < a || $argv[1] > z) || !$mid)
+		die();
+		
+	$driveletter = $argv[1];
+		
+	preg_match_all('#<a\s+href="downmod\.php\?index=(\d+)\s*"#i', file_get_contents('http://94.23.28.20/detail.php?detail=modules&view='.$mid), $matches);
+	preg_match_all('#.::\s+(\d+)\s+Hits\s+::.#', file_get_contents('http://94.23.28.20/detail.php?detail=modules&view='.$mid), $hits);
+	preg_match_all('#<title>Amiga\s+Music\s+Preservation\s+-\s+(.+?)\s+-\s+Modules</title>#', file_get_contents('http://94.23.28.20/detail.php?detail=modules&view='.$mid), $alias);
+	
+	if($hits[1][0] > 0) {
+		echo "\nModules from amp.dascene.net: ".$hits[1][0]."\nAlias: ".$alias[1][0]."\n\nGrabbing:\n\n";
+		unset($hits);
+		unset($alias);
+		
+		$links = array();
+		$runner = $i = 0;
+		$brainfuck = array(">", "+", "<", ".", "-", "[", "]", ",");
+		$brainns = array("0", "1", "2", "3", "4", "5", "6", "7");
+		
+		foreach($matches[1] as $ma) {
+			preg_match('#<meta\s+http-equiv="refresh" content="\d+;\s+url=(.+?)"#', file_get_contents('http://94.23.28.20/downmod.php?index='.$ma), $m);
+			$links[$runner++] = $m[1];
+			echo $brainfuck[array_rand($brainns)];
+			if($i++ == 61) {
+				echo "\r\n";
+				$i = 0;
+			}
+		}
+		
+		unset($brainfuck);
+		unset($brainns);
+		unset($matches);
+		unset($m);
+		echo "\n\nModules grabbed: ".$runner;
+		
+		$stdout = fopen($driveletter.":\\AMPGRABBED\\dlist", "w+");
+		if(!is_writable($driveletter.":\\AMPGRABBED\\dlist") || !$stdout) {
+			unset($links);
+			die();
+		}
+		
+		for($runner = 0; $runner < sizeof($links); $runner++){
+			fputs($stdout, $links[$runner]);
+			if($runner < sizeof($links) - 1)
+				fputs($stdout, "\r\n");
+		}
+		
+		unset($links);
+		fclose($stdout);
+	}
+?>
