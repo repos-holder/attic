@@ -1,4 +1,4 @@
-; Written by Artem Falcon <lomka@gero.in>
+; Written by Artem Lukyanov <dukzcry@ya.ru>
 
 (define (who-starts?) 
  (if (zero? ((lambda (num) (random-integer num)) 2)

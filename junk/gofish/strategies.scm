@@ -1,4 +1,4 @@
-; Written by Artem Falcon <lomka@gero.in>
+; Written by Artem Lukyanov <dukzcry@ya.ru>
 
 #| 1. take into account ranks the player asked for +
  (1.1.) note number of asks for each +
